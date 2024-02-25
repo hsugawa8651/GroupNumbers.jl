@@ -3,7 +3,13 @@ using Documenter, GroupNumbers
 DocMeta.setdocmeta!(GroupNumbers, :DocTestSetup, :(using GroupNumbers))
 makedocs(
     modules = [GroupNumbers],
-    sitename = "GroupNumbers",
+    authors="Hiroharu Sugawara <hsugawa@gmail.com>",
+    sitename = "GroupNumbers.jl",
+    format=Documenter.HTML(;
+        canonical="https://hsugawa8651.github.io/GroupNumbers.jl",
+        edit_link="main",
+        assets=String[],
+    ),
     pages = [
         "Home" => "index.md",
         "API Reference" => "reference.md"
@@ -13,5 +19,5 @@ makedocs(
 
 deploydocs(
     repo = "github.com/hsugawa8651/GroupNumbers.jl.git",
-    push_preview = true,
+    devbranch="main",
 )
