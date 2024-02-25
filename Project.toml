@@ -1,0 +1,13 @@
+name = "GroupNumbers"
+uuid = "3c80737e-c28d-49fd-9c64-d7d44b4f4ed8"
+authors = ["Hiroharu Sugawara <hsugawa@gmail.com>"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.8"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
