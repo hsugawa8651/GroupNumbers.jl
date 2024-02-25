@@ -66,7 +66,9 @@ julia> collect(groupby2_dict([10,20,20,30]))
 
 ## Example 3: Group floating point numbers
 ```jldoctest
-julia> collect(groupby2_dict([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], compare=isapprox, keyfunc=abs))
+julia> collect(groupby2_dict(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
 3-element Vector{Tuple{Any, Vector{Float64}}}:
  (1.0000000002, [1.0000000002, -1.000000002])
  (1.00000002, [1.00000002])
@@ -75,17 +77,14 @@ julia> collect(groupby2_dict([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], compare=is
 ```
 
 ## Example 4: Group noisy vectors with their norm
- ```jldoctest
+ ```julia
 julia> using LinearAlgebra
-
-julia> begin
-        vs1=[ begin 
-               v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
-               (v=v,n=norm(v))
-          end for i1 in -2:2, i2 in -2:2] |> vec
-        vs2=sort(vs1; by=x->x.n)
-        [ (k,length(g)) for (k,g) in groupby2_dict(vs2; keyfunc=x->x.n, compare=isapprox) ]
-        end
+julia> vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |> vec;
+julia> vs2=sort(vs1; by=x->x.n);
+julia> [ (k,length(g)) for (k,g) in groupby2_dict(vs2; keyfunc=x->x.n, compare=isapprox) ]
 6-element Vector{Tuple{Float64, Int64}}:
  (4.16311498666887e-11, 1)
  (0.999999999984808, 4)
@@ -185,7 +184,9 @@ julia> collect(groupby2_dict_indices([10,20,20,30]))
 
 ## Example 3: Group floating point numbers
 ```jldoctest
-julia> collect(groupby2_dict_indices([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], compare=isapprox, keyfunc=abs))
+julia> collect(groupby2_dict_indices(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
 3-element Vector{Tuple{Any, Vector{Int64}}}:
  (1.0000000002, [1, 2])
  (1.00000002, [3])
@@ -193,16 +194,14 @@ julia> collect(groupby2_dict_indices([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], co
 ```
 
 ## Example 4: Group noisy vectors with their norm
- ```jldoctest
+ ```julia
 julia> using LinearAlgebra
-julia> begin
-        vs1=[ begin 
-                v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
-                (v=v,n=norm(v))
-        end for i1 in -2:2, i2 in -2:2] |> vec
-        vs2=sort(vs1; by=x->x.n)
-        collect(groupby2_dict_indices(vs2; keyfunc=x->x.n, compare=isapprox))
-    end
+julia> vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |> vec;
+julia> vs2=sort(vs1; by=x->x.n);
+julia> collect(groupby2_dict_indices(vs2; keyfunc=x->x.n, compare=isapprox))
 6-element Vector{Tuple{Any, Vector{Int64}}}:
  (3.444788576260325e-11, [1])
  (0.9999999999517916, [2, 3, 4, 5])
@@ -277,7 +276,7 @@ julia> collect(groupby_numbers_dict([10,20,20,30]))
 ```
 
 ```jldoctest
-julia> collect( groupby_numbers_dict([10,20,-20,30]; keyfunc=abs))
+julia> collect(groupby_numbers_dict([10,20,-20,30]; keyfunc=abs))
 3-element Vector{Tuple{Any, Vector{Int64}}}:
  (10, [10])
  (20, [20, -20])
@@ -295,7 +294,8 @@ julia> collect(groupby_numbers_dict([ 2e-5, 2e-4, 2e-3, 2e-2 ] .+ 1; rtol=1e-3))
 ```
 
 ```jldoctest
-julia> collect(groupby_numbers_dict([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; keyfunc=abs, rtol=1e-3))
+julia> collect(groupby_numbers_dict([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ];
+        keyfunc=abs, rtol=1e-3))
 3-element Vector{Tuple{Any, Vector{Float64}}}:
  (1.00002, [1.00002, -1.0002])
  (1.002, [1.002])
@@ -303,16 +303,16 @@ julia> collect(groupby_numbers_dict([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; ke
 ```
 
 ## Example 3: Group noisy vectors with their norm
- ```jldoctest
+ ```julia
 julia> using LinearAlgebra
-julia> begin
-        vs1=[ begin 
-                v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
-                (v=v,n=norm(v))
-          end for i1 in -2:2, i2 in -2:2] |> vec
-        vs2=sort(vs1; by=x->x.n)
-        [ (k,length(xg)) for (k,xg) in groupby_numbers_dict(vs2; keyfunc=x->x.n, rtol=1e-3) ]
-      end
+julia> vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |> vec;
+julia> vs2=sort(vs1; by=x->x.n);
+julia> [ (k,length(xg)) for (k,xg) in 
+            groupby_numbers_dict(vs2; keyfunc=x->x.n, rtol=1e-3) ]
+    end
 6-element Vector{Tuple{Float64, Int64}}:
  (3.2527338422665044e-11, 1)
  (0.999999999995845, 4)
@@ -340,57 +340,58 @@ then, delivers the key `k` and the vector `ig` of the grouped indices.
 # Examples
 ## Example 1: Group integer numbers
 ```jldoctest
-julia> collect( groupby_numbers_dict([10,20,20,30]))
+julia> collect(groupby_numbers_dict([10,20,20,30]))
 3-element Vector{Tuple{Any, Vector{Int64}}}:
- (10, [1])
- (20, [2, 3])
- (30, [4])
+ (10, [10])
+ (20, [20, 20])
+ (30, [30])
 ```
 
 ```jldoctest
-julia> collect( groupby_numbers_dict([10,20,-20,30]; keyfunc=abs))
+julia> collect(groupby_numbers_dict([10,20,-20,30]; keyfunc=abs))
 3-element Vector{Tuple{Any, Vector{Int64}}}:
- (10, [1])
- (20, [2, 3])
- (30, [4])
+ (10, [10])
+ (20, [20, -20])
+ (30, [30])
 ```
 
 ## Example 2: Group floating point numbers
 
-```jldoctest
+```julia
 julia> collect(groupby_numbers_dict([ 2e-5, 2e-4, 2e-3, 2e-2 ] .+ 1; rtol=1e-3))
-3-element Vector{Tuple{Any, Vector{Int64}}}:
- (1.00002, [1, 2])
- (1.002, [3])
- (1.02, [4])
+3-element Vector{Tuple{Any, Vector{Float64}}}:
+ (1.00002, [1.00002, 1.0002])
+ (1.002, [1.002])
+ (1.02, [1.02])
 ```
 
-```jldoctest
-julia> collect( groupby_numbers_dict([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; keyfunc=abs, rtol=1e-3))
-3-element Vector{Tuple{Any, Vector{Int64}}}:
- (1.00002, [1, 2])
- (1.002, [3])
- (1.02, [4])
+```julia
+julia> collect(groupby_numbers_dict(
+            [ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ];  
+            keyfunc=abs, rtol=1e-3))
+3-element Vector{Tuple{Any, Vector{Float64}}}:
+ (1.00002, [1.00002, -1.0002])
+ (1.002, [1.002])
+ (1.02, [-1.02])
 ```
 
 ## Example 3: Group noisy vectors with their norm
- ```jldoctest
+ ```julia
 julia> using LinearAlgebra
-julia> begin
-        vs1=[ begin 
-                v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
-                (v=v,n=norm(v))
-        end for i1 in -2:2, i2 in -2:2] |> vec
-        vs2=sort(vs1; by=x->x.n)
-        collect(groupby_numbers_dict(vs2; keyfunc=x->x.n, rtol=1e-3) )
-    end
-6-element Vector{Tuple{Any, Vector{Int64}}}:
- (5.1602090609765565e-11, [1])
- (0.999999999950049, [2, 3, 4, 5])
- (1.41421356233767, [6, 7, 8, 9])
- (1.9999999999749463, [10, 11, 12, 13])
- (2.2360679774420964, [14, 15, 16, 17, 18, 19, 20, 21])
- (2.828427124718571, [22, 23, 24, 25])
+julia> vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |> vec;
+julia> vs2=sort(vs1; by=x->x.n);
+julia> [ (k,length(xg)) for (k,xg) in 
+            groupby_numbers_dict(vs2; keyfunc=x->x.n, rtol=1e-3) ]
+6-element Vector{Tuple{Float64, Int64}}:
+ (4.641593797139748e-11, 1)
+ (0.9999999999691114, 4)
+ (1.4142135623658871, 4)
+ (1.99999999995389, 4)
+ (2.236067977448624, 8)
+ (2.828427124697913, 4)
 ```
 """
 function groupby_numbers_dict_indices(xs; keyfunc=identity, kwargs...)
@@ -450,8 +451,10 @@ julia> collect(groupby2([10,20,20,30]))
 ```
 
 ## Example 3: Group floating point numbers
-```jldoctest
-julia> collect(groupby2([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], compare=isapprox, keyfunc=abs))
+```julia
+julia> collect(groupby2(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
 3-element Vector{Vector{Float64}}:
  [1.0000000002, -1.000000002]
  [1.00000002]
@@ -459,16 +462,13 @@ julia> collect(groupby2([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], compare=isappro
 ```
 
 ## Example 4: Group noisy vectors with their norm
-```jldoctest
+```julia
 julia> using LinearAlgebra
-
 julia> vs1=[ begin 
-            v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
             (v=v,n=norm(v))
-          end for i1 in -2:2, i2 in -2:2] |> vec; 
-
+        end for i1 in -2:2, i2 in -2:2] |> vec; 
 julia> vs2=sort(vs1; by=x->x.n); 
-
 julia> [ length(g) for g in groupby2(vs2; keyfunc=x->x.n, compare=isapprox) ]
 6-element Vector{Int64}:
  1
@@ -569,7 +569,9 @@ julia> collect(groupby2_indices([10,20,20,30]))
 
 ## Example 3: Group floating point numbers
 ```jldoctest
-julia> collect(groupby2_indices([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], compare=isapprox, keyfunc=abs))
+julia> collect(groupby2_indices(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
 3-element Vector{Vector{Int64}}:
  [1, 2]
  [3]
@@ -577,10 +579,10 @@ julia> collect(groupby2_indices([1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)], compare
 ```
 
 ## Example 4: Group noisy vectors with their norm
- ```jldoctest
+ ```julia
 julia> using LinearAlgebra
 julia> vs1=[ begin 
-            v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
             (v=v,n=norm(v))
         end for i1 in -2:2, i2 in -2:2] |> vec;
 julia> vs2=sort(vs1; by=x->x.n);
@@ -660,7 +662,7 @@ julia> collect(groupby_numbers([10,20,20,30]))
 ```
 
 ```jldoctest
-julia> collect( groupby_numbers([10,20,-20,30]; keyfunc=abs))
+julia> collect(groupby_numbers([10,20,-20,30]; keyfunc=abs))
 3-element Vector{Vector{Int64}}:
  [10]
  [20, -20]
@@ -686,11 +688,11 @@ julia> collect(groupby_numbers([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; keyfunc
 ```
 
 ## Example 3: Group noisy vectors with their norm
- ```jldoctest
- julia> using LinearAlgebra
+ ```julia
+julia> using LinearAlgebra
 
 julia> vs1=[ begin 
-            v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
             (v=v,n=norm(v))
         end for i1 in -2:2, i2 in -2:2] |> vec;
 julia> vs2=sort(vs1; by=x->x.n);
@@ -722,7 +724,7 @@ then, delivers the vector `ig` of the grouped indices.
 # Examples
 ## Example 1: Group integer numbers
 ```jldoctest
-julia> collect( groupby_numbers_indices([10,20,20,30]))
+julia> collect(groupby_numbers_indices([10,20,20,30]))
 3-element Vector{Vector{Int64}}:
  [1]
  [2, 3]
@@ -730,7 +732,7 @@ julia> collect( groupby_numbers_indices([10,20,20,30]))
 ```
 
 ```jldoctest
-julia> collect( groupby_numbers_indices([10,20,-20,30]; keyfunc=abs))
+julia> collect(groupby_numbers_indices([10,20,-20,30]; keyfunc=abs))
 3-element Vector{Vector{Int64}}:
  [1]
  [2, 3]
@@ -748,7 +750,8 @@ julia> collect(groupby_numbers_indices([ 2e-5, 2e-4, 2e-3, 2e-2 ] .+ 1; rtol=1e-
 ```
 
 ```jldoctest
-julia> collect( groupby_numbers_indices([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; keyfunc=abs, rtol=1e-3))
+julia> collect(groupby_numbers_indices([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; 
+        keyfunc=abs, rtol=1e-3))
 3-element Vector{Vector{Int64}}:
  [1, 2]
  [3]
@@ -756,11 +759,11 @@ julia> collect( groupby_numbers_indices([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]
 ```
 
 ## Example 3: Group noisy vectors with their norm
- ```jldoctest
+ ```julia
  julia> using LinearAlgebra
 
 julia> vs1=[ begin 
-            v=(i1+(rand()-0.5)*1e-10,i2+(rand()-0.5)*1e-10);
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
             (v=v,n=norm(v))
         end for i1 in -2:2, i2 in -2:2] |> vec;
 julia> vs2=sort(vs1; by=x->x.n);
