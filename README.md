@@ -1,6 +1,6 @@
 # GroupNumbers
 
-[![Build Status](https://github.com/hsugawa8651/GroupNumbers.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/hsugawa8651/GroupNumbers.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://github.com/hsugawa8651/GroupNumbers.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/hsugawa8651/GroupNumbers.jl/actions/workflows/CI.yml?query=branch%3Amain) [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hsugawa8651.github.io/GroupNumbers.jl/stable/) [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 
 
 Provides a few iterators for grouping the given iterator.
