@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Home · GroupNumbers.jl</title><meta name="title" content="Home · GroupNumbers.jl"/><meta property="og:title" content="Home · GroupNumbers.jl"/><meta property="twitter:title" content="Home · GroupNumbers.jl"/><meta name="description" content="Documentation for GroupNumbers.jl."/><meta property="og:description" content="Documentation for GroupNumbers.jl."/><meta property="twitter:description" content="Documentation for GroupNumbers.jl."/><meta property="og:url" content="https://hsugawa8651.github.io/GroupNumbers.jl/"/><meta property="twitter:url" content="https://hsugawa8651.github.io/GroupNumbers.jl/"/><link rel="canonical" href="https://hsugawa8651.github.io/GroupNumbers.jl/"/><script data-outdated-warner src="assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="search_index.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href>GroupNumbers.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li class="is-active"><a class="tocitem" href>Home</a><ul class="internal"><li><a class="tocitem" href="#Installation"><span>Installation</span></a></li><li><a class="tocitem" href="#Description"><span>Description</span></a></li><li><a class="tocitem" href="#Index"><span>Index</span></a></li><li><a class="tocitem" href="#See-also"><span>See also</span></a></li></ul></li><li><a class="tocitem" href="reference/">API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Home</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Home</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/hsugawa8651/GroupNumbers.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/main/docs/src/index.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="GroupNumbers"><a class="docs-heading-anchor" href="#GroupNumbers">GroupNumbers</a><a id="GroupNumbers-1"></a><a class="docs-heading-anchor-permalink" href="#GroupNumbers" title="Permalink"></a></h1><h2 id="Installation"><a class="docs-heading-anchor" href="#Installation">Installation</a><a id="Installation-1"></a><a class="docs-heading-anchor-permalink" href="#Installation" title="Permalink"></a></h2><p>Install this package with <code>Pkg.add(&quot;GroupNumbers&quot;)</code></p><h2 id="Description"><a class="docs-heading-anchor" href="#Description">Description</a><a id="Description-1"></a><a class="docs-heading-anchor-permalink" href="#Description" title="Permalink"></a></h2><h2 id="Index"><a class="docs-heading-anchor" href="#Index">Index</a><a id="Index-1"></a><a class="docs-heading-anchor-permalink" href="#Index" title="Permalink"></a></h2><h3 id="Iterators-delivering-only-grouped-elements-or-indices"><a class="docs-heading-anchor" href="#Iterators-delivering-only-grouped-elements-or-indices">Iterators delivering only grouped elements or indices</a><a id="Iterators-delivering-only-grouped-elements-or-indices-1"></a><a class="docs-heading-anchor-permalink" href="#Iterators-delivering-only-grouped-elements-or-indices" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby2" href="#GroupNumbers.groupby2"><code>GroupNumbers.groupby2</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby2(xs; keyfunc=identity, compare=isequal)</code></pre><p>An iterator that yields a group of elements <code>xg</code> from the iterator <code>xs</code>, where the key is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>compare</code> function, then, delivers the vector <code>xg</code> of the grouped elements.</p><p><strong>Examples</strong></p><p><strong>Example 1: Group characters</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2(&quot;A&quot;))
+1-element Vector{Vector{Char}}:
+ [&#39;A&#39;]
+
+julia&gt; collect(groupby2(&quot;AAAABBBCCD&quot;))
+4-element Vector{Vector{Char}}:
+ [&#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;]
+ [&#39;B&#39;, &#39;B&#39;, &#39;B&#39;]
+ [&#39;C&#39;, &#39;C&#39;]
+ [&#39;D&#39;]</code></pre><p><strong>Example 2: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2([10,20,20,30]))
+3-element Vector{Vector{Int64}}:
+ [10]
+ [20, 20]
+ [30]</code></pre><p><strong>Example 3: Group floating point numbers</strong></p><pre><code class="language-julia hljs">julia&gt; collect(groupby2(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
+3-element Vector{Vector{Float64}}:
+ [1.0000000002, -1.000000002]
+ [1.00000002]
+ [-1.0000002]</code></pre><p><strong>Example 4: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs">julia&gt; using LinearAlgebra
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec; 
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n); 
+julia&gt; [ length(g) for g in groupby2(vs2; keyfunc=x-&gt;x.n, compare=isapprox) ]
+6-element Vector{Int64}:
+ 1
+ 4
+ 4
+ 4
+ 8
+ 4</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L421-L481">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby2_indices" href="#GroupNumbers.groupby2_indices"><code>GroupNumbers.groupby2_indices</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby2_indices(xs; keyfunc=identity, compare=isequal)</code></pre><p>An iterator that yields a group of indices <code>ig</code> from the iterator <code>xs</code>, where the key is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>compare</code> function, then, delivers the vector <code>ig</code> of the grouped indices.</p><p><strong>Examples</strong></p><p><strong>Example 1: Group characters</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_indices(&quot;A&quot;))
+1-element Vector{Vector{Int64}}:
+ [1]</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_indices(&quot;AAAABBBCCD&quot;))
+4-element Vector{Vector{Int64}}:
+ [1, 2, 3, 4]
+ [5, 6, 7]
+ [8, 9]
+ [10]</code></pre><p><strong>Example 2: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_indices([10,20,20,30]))
+3-element Vector{Vector{Int64}}:
+ [1]
+ [2, 3]
+ [4]</code></pre><p><strong>Example 3: Group floating point numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_indices(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
+3-element Vector{Vector{Int64}}:
+ [1, 2]
+ [3]
+ [4]</code></pre><p><strong>Example 4: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs">julia&gt; using LinearAlgebra
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec;
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n);
+
+julia&gt; collect(groupby2_indices(vs2; keyfunc=x-&gt;x.n, compare=isapprox))
+6-element Vector{Vector{Int64}}:
+ [1]
+ [2, 3, 4, 5]
+ [6, 7, 8, 9]
+ [10, 11, 12, 13]
+ [14, 15, 16, 17, 18, 19, 20, 21]
+ [22, 23, 24, 25]</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L535-L599">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby_numbers" href="#GroupNumbers.groupby_numbers"><code>GroupNumbers.groupby_numbers</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby_numbers(xs; keyfunc=identity, kwargs)</code></pre><p>An iterator that yields a group of numbers <code>xg</code> from the iterator <code>xs</code> of presumably numbers, where the key is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>isapprox</code> function with supplied <code>kwargs</code> optional parameters,  then, delivers the vector <code>xg</code> of the grouped numbers.</p><p><strong>Examples</strong></p><p><strong>Example 1: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers([10,20,20,30]))
+3-element Vector{Vector{Int64}}:
+ [10]
+ [20, 20]
+ [30]</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers([10,20,-20,30]; keyfunc=abs))
+3-element Vector{Vector{Int64}}:
+ [10]
+ [20, -20]
+ [30]</code></pre><p><strong>Example 2: Group floating point numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers([ 2e-5, 2e-4, 2e-3, 2e-2 ] .+ 1; rtol=1e-3))
+3-element Vector{Vector{Float64}}:
+ [1.00002, 1.0002]
+ [1.002]
+ [1.02]</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; keyfunc=abs, rtol=1e-3))
+3-element Vector{Vector{Float64}}:
+ [1.00002, -1.0002]
+ [1.002]
+ [-1.02]</code></pre><p><strong>Example 3: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs">julia&gt; using LinearAlgebra
+
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec;
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n);
+julia&gt; map(length, groupby_numbers(vs2; keyfunc=x-&gt;x.n, rtol=1e-3))
+6-element Vector{Int64}:
+ 1
+ 4
+ 4
+ 4
+ 8
+ 4</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L646-L708">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby_numbers_indices" href="#GroupNumbers.groupby_numbers_indices"><code>GroupNumbers.groupby_numbers_indices</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby_numbers_indices(xs; keyfunc=identity, kwargs)</code></pre><p>An iterator that yields a group of indices <code>ig</code> from the iterator <code>xs</code> of presumably numbers, where the key is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>isapprox</code> function with supplied <code>kwargs</code> optional parameters,  then, delivers the vector <code>ig</code> of the grouped indices.</p><p><strong>Examples</strong></p><p><strong>Example 1: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_indices([10,20,20,30]))
+3-element Vector{Vector{Int64}}:
+ [1]
+ [2, 3]
+ [4]</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_indices([10,20,-20,30]; keyfunc=abs))
+3-element Vector{Vector{Int64}}:
+ [1]
+ [2, 3]
+ [4]</code></pre><p><strong>Example 2: Group floating point numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_indices([ 2e-5, 2e-4, 2e-3, 2e-2 ] .+ 1; rtol=1e-3))
+3-element Vector{Vector{Int64}}:
+ [1, 2]
+ [3]
+ [4]</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_indices([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ]; 
+        keyfunc=abs, rtol=1e-3))
+3-element Vector{Vector{Int64}}:
+ [1, 2]
+ [3]
+ [4]</code></pre><p><strong>Example 3: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs"> julia&gt; using LinearAlgebra
+
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec;
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n);
+julia&gt; collect(groupby_numbers_indices(vs2; keyfunc=x-&gt;x.n, rtol=1e-3) )
+6-element Vector{Vector{Int64}}:
+ [1]
+ [2, 3, 4, 5]
+ [6, 7, 8, 9]
+ [10, 11, 12, 13]
+ [14, 15, 16, 17, 18, 19, 20, 21]
+ [22, 23, 24, 25]</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L716-L779">source</a></section></article><h3 id="Iterators-delivering-keys-and-grouped-elements-or-indices"><a class="docs-heading-anchor" href="#Iterators-delivering-keys-and-grouped-elements-or-indices">Iterators delivering keys and grouped elements or indices</a><a id="Iterators-delivering-keys-and-grouped-elements-or-indices-1"></a><a class="docs-heading-anchor-permalink" href="#Iterators-delivering-keys-and-grouped-elements-or-indices" title="Permalink"></a></h3><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby2_dict" href="#GroupNumbers.groupby2_dict"><code>GroupNumbers.groupby2_dict</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby2_dict(xs; keyfunc=identity, compare=isequal)</code></pre><p>An iterator that yields a key-and-group pair <code>(k,xg)</code> from the iterator <code>xs</code>, where the key <code>k</code> is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>compare</code> function, then, delivers the key <code>k</code> and the vector <code>xg</code> of the grouped elements .</p><p><strong>Examples</strong></p><p><strong>Example 1: Group characters</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_dict(&quot;A&quot;))
+1-element Vector{Tuple{Any, Vector{Char}}}:
+ (&#39;A&#39;, [&#39;A&#39;])
+
+julia&gt; collect(groupby2_dict(&quot;AAAABBBCCD&quot;))
+4-element Vector{Tuple{Any, Vector{Char}}}:
+ (&#39;A&#39;, [&#39;A&#39;, &#39;A&#39;, &#39;A&#39;, &#39;A&#39;])
+ (&#39;B&#39;, [&#39;B&#39;, &#39;B&#39;, &#39;B&#39;])
+ (&#39;C&#39;, [&#39;C&#39;, &#39;C&#39;])
+ (&#39;D&#39;, [&#39;D&#39;])</code></pre><p><strong>Example 2: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_dict([10,20,20,30]))
+3-element Vector{Tuple{Any, Vector{Int64}}}:
+ (10, [10])
+ (20, [20, 20])
+ (30, [30])</code></pre><p><strong>Example 3: Group floating point numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_dict(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
+3-element Vector{Tuple{Any, Vector{Float64}}}:
+ (1.0000000002, [1.0000000002, -1.000000002])
+ (1.00000002, [1.00000002])
+ (1.0000002, [-1.0000002])
+</code></pre><p><strong>Example 4: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs">julia&gt; using LinearAlgebra
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec;
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n);
+julia&gt; [ (k,length(g)) for (k,g) in groupby2_dict(vs2; keyfunc=x-&gt;x.n, compare=isapprox) ]
+6-element Vector{Tuple{Float64, Int64}}:
+ (4.16311498666887e-11, 1)
+ (0.999999999984808, 4)
+ (1.4142135623388605, 4)
+ (1.9999999999726468, 4)
+ (2.236067977467306, 8)
+ (2.828427124726703, 4)</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L35-L96">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby2_dict_indices" href="#GroupNumbers.groupby2_dict_indices"><code>GroupNumbers.groupby2_dict_indices</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby2_dict_indices(xs; keyfunc=identity, compare=isequal)</code></pre><p>An iterator that yields a key-and-group pair <code>(k,ig)</code> from the iterator <code>xs</code>, where the key <code>k</code> is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>compare</code> function, then, delivers the key <code>k</code> and the vector <code>ig</code> of the grouped indices.</p><p><strong>Examples</strong></p><p><strong>Example 1: Group characters</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_dict_indices(&quot;A&quot;))
+1-element Vector{Tuple{Any, Vector{Int64}}}:
+ (&#39;A&#39;, [1])</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_dict_indices(&quot;AAAABBBCCD&quot;))
+4-element Vector{Tuple{Any, Vector{Int64}}}:
+ (&#39;A&#39;, [1, 2, 3, 4])
+ (&#39;B&#39;, [5, 6, 7])
+ (&#39;C&#39;, [8, 9])
+ (&#39;D&#39;, [10])</code></pre><p><strong>Example 2: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_dict_indices([10,20,20,30]))
+3-element Vector{Tuple{Any, Vector{Int64}}}:
+ (10, [1])
+ (20, [2, 3])
+ (30, [4])</code></pre><p><strong>Example 3: Group floating point numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby2_dict_indices(
+        [1+2e-10, -(1+2e-9), 1+2e-8, -(1+2e-7)];
+        compare=isapprox, keyfunc=abs))
+3-element Vector{Tuple{Any, Vector{Int64}}}:
+ (1.0000000002, [1, 2])
+ (1.00000002, [3])
+ (1.0000002, [4])</code></pre><p><strong>Example 4: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs">julia&gt; using LinearAlgebra
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec;
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n);
+julia&gt; collect(groupby2_dict_indices(vs2; keyfunc=x-&gt;x.n, compare=isapprox))
+6-element Vector{Tuple{Any, Vector{Int64}}}:
+ (3.444788576260325e-11, [1])
+ (0.9999999999517916, [2, 3, 4, 5])
+ (1.4142135623328898, [6, 7, 8, 9])
+ (1.9999999999690443, [10, 11, 12, 13])
+ (2.236067977456823, [14, 15, 16, 17, 18, 19, 20, 21])
+ (2.828427124691792, [22, 23, 24, 25])</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L150-L213">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby_numbers_dict" href="#GroupNumbers.groupby_numbers_dict"><code>GroupNumbers.groupby_numbers_dict</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby_numbers_dict(xs; keyfunc=identity, kwargs)</code></pre><p>An iterator that yields a key-and-group pair <code>(k,xg)</code> from the iterator <code>xs</code> of presumably numbers, where the key <code>k</code> is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>isapprox</code> function with supplied <code>kwargs</code> optional parameters,  then, delivers the key <code>k</code> and the vector <code>xg</code> of grouped elements.</p><p><strong>Examples</strong></p><p><strong>Example 1: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_dict([10,20,20,30]))
+3-element Vector{Tuple{Any, Vector{Int64}}}:
+ (10, [10])
+ (20, [20, 20])
+ (30, [30])</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_dict([10,20,-20,30]; keyfunc=abs))
+3-element Vector{Tuple{Any, Vector{Int64}}}:
+ (10, [10])
+ (20, [20, -20])
+ (30, [30])</code></pre><p><strong>Example 2: Group floating point numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_dict([ 2e-5, 2e-4, 2e-3, 2e-2 ] .+ 1; rtol=1e-3))
+3-element Vector{Tuple{Any, Vector{Float64}}}:
+ (1.00002, [1.00002, 1.0002])
+ (1.002, [1.002])
+ (1.02, [1.02])</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_dict([ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ];
+        keyfunc=abs, rtol=1e-3))
+3-element Vector{Tuple{Any, Vector{Float64}}}:
+ (1.00002, [1.00002, -1.0002])
+ (1.002, [1.002])
+ (1.02, [-1.02])</code></pre><p><strong>Example 3: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs">julia&gt; using LinearAlgebra
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec;
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n);
+julia&gt; [ (k,length(xg)) for (k,xg) in 
+            groupby_numbers_dict(vs2; keyfunc=x-&gt;x.n, rtol=1e-3) ]
+    end
+6-element Vector{Tuple{Float64, Int64}}:
+ (3.2527338422665044e-11, 1)
+ (0.999999999995845, 4)
+ (1.4142135623542986, 4)
+ (2.000000000002051, 4)
+ (2.236067977452884, 8)
+ (2.8284271246921855, 4)</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L260-L324">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="GroupNumbers.groupby_numbers_dict_indices" href="#GroupNumbers.groupby_numbers_dict_indices"><code>GroupNumbers.groupby_numbers_dict_indices</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia hljs">groupby_numbers_dict(xs; keyfunc=identity, kwargs)</code></pre><p>An iterator that yields a key-and-group pair <code>(k,ig)</code> from the iterator <code>xs</code> of presumably numbers, where the key <code>k</code> is computed by applying <code>keyfunc</code> to each element of <code>xs</code>. Compare adjacent keys by <code>isapprox</code> function with supplied <code>kwargs</code> optional parameters,  then, delivers the key <code>k</code> and the vector <code>ig</code> of the grouped indices.</p><p><strong>Examples</strong></p><p><strong>Example 1: Group integer numbers</strong></p><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_dict([10,20,20,30]))
+3-element Vector{Tuple{Any, Vector{Int64}}}:
+ (10, [10])
+ (20, [20, 20])
+ (30, [30])</code></pre><pre><code class="language-julia-repl hljs">julia&gt; collect(groupby_numbers_dict([10,20,-20,30]; keyfunc=abs))
+3-element Vector{Tuple{Any, Vector{Int64}}}:
+ (10, [10])
+ (20, [20, -20])
+ (30, [30])</code></pre><p><strong>Example 2: Group floating point numbers</strong></p><pre><code class="language-julia hljs">julia&gt; collect(groupby_numbers_dict([ 2e-5, 2e-4, 2e-3, 2e-2 ] .+ 1; rtol=1e-3))
+3-element Vector{Tuple{Any, Vector{Float64}}}:
+ (1.00002, [1.00002, 1.0002])
+ (1.002, [1.002])
+ (1.02, [1.02])</code></pre><pre><code class="language-julia hljs">julia&gt; collect(groupby_numbers_dict(
+            [ 1+2e-5, -(1+2e-4), 1+2e-3, -(1+2e-2) ];  
+            keyfunc=abs, rtol=1e-3))
+3-element Vector{Tuple{Any, Vector{Float64}}}:
+ (1.00002, [1.00002, -1.0002])
+ (1.002, [1.002])
+ (1.02, [-1.02])</code></pre><p><strong>Example 3: Group noisy vectors with their norm</strong></p><pre><code class="language-julia hljs">julia&gt; using LinearAlgebra
+julia&gt; vs1=[ begin 
+            v=(i1+(rand()-0.5)*1e-8,i2+(rand()-0.5)*1e-8);
+            (v=v,n=norm(v))
+        end for i1 in -2:2, i2 in -2:2] |&gt; vec;
+julia&gt; vs2=sort(vs1; by=x-&gt;x.n);
+julia&gt; [ (k,length(xg)) for (k,xg) in 
+            groupby_numbers_dict(vs2; keyfunc=x-&gt;x.n, rtol=1e-3) ]
+6-element Vector{Tuple{Float64, Int64}}:
+ (4.641593797139748e-11, 1)
+ (0.9999999999691114, 4)
+ (1.4142135623658871, 4)
+ (1.99999999995389, 4)
+ (2.236067977448624, 8)
+ (2.828427124697913, 4)</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/hsugawa8651/GroupNumbers.jl/blob/6d2676d20f34381cd6c546feb56c72c2bdd2cbbb/src/GroupNumbers.jl#L332-L396">source</a></section></article><h2 id="See-also"><a class="docs-heading-anchor" href="#See-also">See also</a><a id="See-also-1"></a><a class="docs-heading-anchor-permalink" href="#See-also" title="Permalink"></a></h2><ul><li><a href="https://juliacollections.github.io/IterTools.jl/stable/reference/#IterTools.groupby-Union{Tuple{I},%20Tuple{F},%20Tuple{F,%20I}}%20where%20{F%3C:Union{Function,%20Type},%20I}"><code>IterTools.groupby</code></a></li></ul></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="reference/">API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="auto">Automatic (OS)</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.2.1 on <span class="colophon-date" title="Sunday 25 February 2024 13:18">Sunday 25 February 2024</span>. Using Julia version 1.10.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
