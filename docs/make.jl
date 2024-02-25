@@ -1,7 +1,9 @@
-using Documenter, GroupNumbers
+using GroupNumbers
+using Documenter
 
-DocMeta.setdocmeta!(GroupNumbers, :DocTestSetup, :(using GroupNumbers))
-makedocs(
+DocMeta.setdocmeta!(GroupNumbers, :DocTestSetup, :(using GroupNumbers); recursive=true)
+
+makedocs(;
     modules = [GroupNumbers],
     authors="Hiroharu Sugawara <hsugawa@gmail.com>",
     sitename = "GroupNumbers.jl",
