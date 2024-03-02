@@ -3,21 +3,16 @@
 [![Build Status](https://github.com/hsugawa8651/GroupNumbers.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/hsugawa8651/GroupNumbers.jl/actions/workflows/CI.yml?query=branch%3Amain) [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://hsugawa8651.github.io/GroupNumbers.jl/stable/) [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 
 
-Provides a few iterators for grouping the given iterator.
+Provides iterators for grouping the given iterator of possibly numbers.
 
-* `groupby2_dict` : simulates [`itertools.groupby`](https://docs.python.org/3/library/itertools.html#itertools.groupby) iterator of Python 3, and emits pairs of key and grouped values.
-* `groupby2_dict_indices` : same function as `groupby2_dict` but emits grouped indices rather than grouped values.
-* `groupby_numbers_dict` : groups (scalar and/or vector) values of floating point numbers, and emits pairs of key and grouped values.
-* `groupby_numbers_dict_indices` : same function as `groupby_numbers_dict` but emits grouped indices rather than grouped values.
+## Quick start
 
-For each of the above itarators, alternative versions without `key` output are provided.
+```julia
+julia> for g in groupby_numbers([ 16e-4, 17e-4, 19e-4, 20e-4 ] .+ 1; rtol=2e-4)
+           @show g
+       end
+g = [1.0016, 1.0017]
+g = [1.0019, 1.002]
+```
 
-* `groupby2`
-* `groupby2_indices`
-* `groupby_numbers`
-* `groupby_numbers_indices`
-
-
-## Installation
-
-Install this package with `Pkg.add("GroupNumbers")`
+Please refer to the [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/stable/) for comprehensive guides and examples.

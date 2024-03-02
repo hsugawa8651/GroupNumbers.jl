@@ -6,30 +6,7 @@ Install this package with `Pkg.add("GroupNumbers")`
 
 ## Description
 
-* `groupby2YYYZZZ(xs; keyfunc=identity, compare=isequal)`
-* `groupby_numbersYYYZZZ(xs; keyfunc=identity, compare=isapprox, kwargs)`
-
-Here, "YYY" = "" or "\_dict", and "ZZZ" = "" or "\_indices".
-
-
 A family of iterators for grouping adjecent elements of the given iterator `xs`.
-
-Apply `keyfunc` function to each element of `xs` to compute the key for comparison.
-For default, `keyfunc` is `identity`, so the key is each element itself.
-
-Compare the adjacent keys by `compare` function.
-While `groupby2YYYZZZ` family  adopt `isequal` to the default `compare` function, 
-`groupby_numbersYYYZZZ` family adopt `isapprox` to the default `compare` function 
-with accompanying `kwargs` being supplied to the optional keyword parameters of 
-this default `isapprox` function, allowing the control of the tolerance.
-
-While unbranded iterators ("ZZZ" = "") emit the grouped elements,
-the `_indices` alternatives ("ZZZ" = "\_indices" ) emit the indices of the grouped elements.
-
-While unbranded iterators ("YYY" = "") emit only the grouped elements or their indices,
-the `_dict` alternatives ("YYY" = "\_dict" ) emit also the first keys.
-
-
 
 | `compare` function | emits the grouped elements          | emits the grouped indices           |                |
 |:-------------------|:--------------------------------|:--------------------------------|:---------------|
@@ -37,6 +14,29 @@ the `_dict` alternatives ("YYY" = "\_dict" ) emit also the first keys.
 |                    | `groupby2_dict`                 | `groupby2_dict_indices`         | also emits key |
 | `isapprox`         | `groupby_numbers`               | `groupby_numbers_indices`       |                |
 |                    | `groupby_numbers_dict`          | `groupby_numbers_dict_indices`  | also emits key |
+
+
+* `groupby2YYYZZZ(xs; keyfunc=identity, compare=isequal)`
+* `groupby_numbersYYYZZZ(xs; keyfunc=identity, compare=isapprox, kwargs)`
+
+Here, "YYY" = "" or "\_dict", and "ZZZ" = "" or "\_indices".
+
+Apply `keyfunc` function to each element of `xs` to compute the key for comparison.
+For default, `keyfunc` is `identity`, so the key is each element itself.
+
+Compare the adjacent keys by `compare` function.
+While `groupby2YYYZZZ` family  adopt `isequal` as the default `compare` function, 
+`groupby_numbersYYYZZZ` family adopt `isapprox` 
+with accompanying `kwargs` 
+being supplied to the keyword parameters of 
+the default `isapprox` function, allowing the control of the tolerance.
+
+While unbranded iterators ("ZZZ" = "") emit the grouped elements,
+the `_indices` alternatives ("ZZZ" = "\_indices" ) emit the indices of the grouped elements.
+
+While unbranded iterators ("YYY" = "") emit only the grouped elements or their indices,
+the `_dict` alternatives ("YYY" = "\_dict" ) emit also the first keys.
+
 
 # Examples
 
@@ -185,11 +185,10 @@ julia> collect(groupby_numbers([ 2e-8, 2e-7, 2e-6, 2e-5 ] .+ 1; atol=1e-6))
 ```
 
 ```julia
-julia> collect(groupby_numbers([ 2e-6, 2e-5, 2e-4, 2e-3 ] .+ 1; rtol=1e-4))
-3-element Vector{Vector{Float64}}:
- [1.000002, 1.00002]
- [1.0002]
- [1.002]
+julia> collect(groupby_numbers([ 16, 17, 19, 20 ]* 1e-4 .+ 1; atol=2e-4))
+2-element Vector{Vector{Float64}}:
+ [1.0016, 1.0017]
+ [1.0019, 1.002]
 ```
 
 ### Groups by their absolute values
@@ -232,7 +231,7 @@ julia> # Rotation matrix
 
 julia> using IterTools
 julia> vs1 = collect( Iterators.take(
-                iterated(v -> (1+rand()*1e-8)*r15*v, [1,0]), 5) )
+                iterated(v -> (1+rand()*1e-8)*r15*v, [1, 0]), 5) )
 5-element Vector{Vector}:
  [1, 0]
  [0.9659258323666292, 0.25881904673099826]
@@ -255,14 +254,14 @@ julia> using LinearAlgebra
 
 julia> vs1=vec( [ begin 
             v= [i1,i2] *(1+(rand()-0.5)*1e-8);
-            (v=v,n=norm(v))
+            (norm(v),v)
         end for i1 in -2:2, i2 in -2:2] );
 
 julia> # sort by norm
-       vs2=sort(vs1; by=x->x.n);
+       vs2=sort(vs1; by=first);
 
 julia> # group by norm
-       collect(groupby_numbers_dict_indices(vs2; keyfunc=x->x.n))
+       collect(groupby_numbers_dict_indices(vs2; keyfunc=first))
 6-element Vector{Tuple{Any, Vector{Int64}}}:
  (0.0, [1])
  (0.9999999976242439, [2, 3, 4, 5])
