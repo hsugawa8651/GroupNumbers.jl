@@ -6,8 +6,8 @@ Install this package with `Pkg.add("GroupNumbers")`
 
 ## Description
 
-* `groupby2YYYZZZ(xs; keyfunc=ident, compare=isequal)`
-* `groupby_numbersYYYZZZ(xs; keyfunc=ident, compare=isapprox, kwargs)`
+* `groupby2YYYZZZ(xs; keyfunc=identity, compare=isequal)`
+* `groupby_numbersYYYZZZ(xs; keyfunc=identity, compare=isapprox, kwargs)`
 
 Here, "YYY" = "" or "\_dict", and "ZZZ" = "" or "\_indices".
 
@@ -15,7 +15,7 @@ Here, "YYY" = "" or "\_dict", and "ZZZ" = "" or "\_indices".
 A family of iterators for grouping adjecent elements of the given iterator `xs`.
 
 Apply `keyfunc` function to each element of `xs` to compute the key for comparison.
-For default, `keyfunc` is `ident`, so the key is each element itself.
+For default, `keyfunc` is `identity`, so the key is each element itself.
 
 Compare the adjacent keys by `compare` function.
 While `groupby2YYYZZZ` family  adopt `isequal` to the default `compare` function, 
@@ -42,6 +42,8 @@ the `_dict` alternatives ("YYY" = "\_dict" ) emit also the first keys.
 
 ## Example 1: Groups characters in a string
 
+`groupby2(xs)` is equivalent to `IterTools.groupby(identity, xs)`.
+
 ### Simple case
 
 ```julia
@@ -53,7 +55,14 @@ julia> collect(groupby2("AAAABBBCCD"))
  ['D']
 ```
 
+```julia
+julia> using IterTools
+julia> collect(IterTools.groupby(identity, "AAAABBBCCD")); # => same result
+```
+
 ### Emits keys
+
+Use `groupby2_dict(xs)` if you need the keys.
 
 ```julia
 julia> collect(groupby2_dict("AAAABBBCCD"))
@@ -66,8 +75,10 @@ julia> collect(groupby2_dict("AAAABBBCCD"))
 
 ### Groups without case sensitive
 
+Specify `keyfunc` optional parameter to a function that computes a key.
+
 ```julia
-julia> collect(groupby2_dict("AaAABbBcCD", keyfunc=uppercase))
+julia> collect(groupby2_dict("AaAABbBcCD"; keyfunc=uppercase))
 4-element Vector{Tuple{Any, Vector{Char}}}:
  ('A', ['A', 'a', 'A', 'A'])
  ('B', ['B', 'b', 'B'])
@@ -89,6 +100,8 @@ julia> collect(groupby2_dict_indices("AaAABbBcCD", keyfunc=uppercase))
 ## Example 2: Groups integer numbers
 ### Simple case
 
+`groupby2` and `groupby_numbers` can be used to group integer numbers.
+
 ```julia
 julia> collect(groupby2([10,20,20,30]))
 3-element Vector{Vector{Int64}}:
@@ -109,7 +122,9 @@ julia> collect(groupby2_dict([10,20,20,30]))
  (10, [10])
  (20, [20, 20])
  (30, [30])
+```
 
+```julia
 julia> collect(groupby_numbers_dict([10,20,20,30])); # => same result
 ```
 
@@ -121,7 +136,9 @@ julia> collect(groupby2_dict([10,-20,20,30]; keyfunc=abs))
  (10, [10])
  (20, [-20, 20])
  (30, [30])
+```
 
+```julia
 julia> collect(groupby_numbers_dict([10,-20,20,30]; keyfunc=abs)); # => same result
 ```
 
@@ -133,15 +150,19 @@ julia> collect(groupby2_dict_indices([10,-20,20,30]; keyfunc=abs))
  (10, [1])
  (20, [2, 3])
  (30, [4])
+```
 
+```julia
 julia> collect(groupby_numbers_dict_indices([10,-20,20,30]; keyfunc=abs)); # => same result
 ```
 
 ## Example 3: Groups floating point numbers
 
-Use `groupby_numbersYYYZZZ` rather than `groupby2YYYZZZ` to make groups of floating point numbers.
+Use `groupby_numbersYYYZZZ` rather than `groupby2YYYZZZ` to group floating point numbers.
 
-### Simple case. Compare floating point numbers by `isapprox` function with default parameters.
+### Simple case. 
+
+`groupby_numbersYYYZZZ` groups floating point numbers with `isapprox` function by default.
 
 ```julia
 julia> collect(groupby_numbers([ 2e-10, 2e-9, 2e-8, 2e-7 ] .+ 1))
@@ -195,6 +216,8 @@ julia> collect(groupby_numbers_indices([ 1+2e-6, -1+2e-5, 1+2e-4, 1-2e-3 ];
 
 ## Example 4: Groups noisy vectors
 
+`groupby_numbersYYYZZZ` can be used to group an array of floating point numbers.
+
 ### Groups array of vectors
 
 Rotation preserves norm.
@@ -202,7 +225,7 @@ Rotation preserves norm.
 ```julia
 julia> using LinearAlgebra
 julia> # Rotation matrix
-julia> t=15; r15 = [ cosd(t) -sind(t); sind(t) cosd(t)]
+       t=15; r15 = [ cosd(t) -sind(t); sind(t) cosd(t)]
 2×2 Matrix{Float64}:
  0.965926  -0.258819
  0.258819   0.965926
@@ -217,14 +240,15 @@ julia> vs1 = collect( Iterators.take(
  [0.7071067969544697, 0.7071067969544694]
  [0.5000000112991584, 0.8660254233551546]
 
-julia> collect( groupby_numbers_indices(vs1;keyfunc=norm, atol=1e-6))
+julia> # group by norm
+       collect( groupby_numbers_indices(vs1; keyfunc=norm, atol=1e-6))
 1-element Vector{Vector{Int64}}:
  [1, 2, 3, 4, 5]
 ```
 
 ### Groups array of tuple consisting of vector and its norm
 
-Calculate the vectors and their norms to avoid recalculate the latter.
+Calculate the vectors and their norms to avoid recalculate the latters.
 
 ```julia
 julia> using LinearAlgebra
@@ -234,9 +258,11 @@ julia> vs1=vec( [ begin
             (v=v,n=norm(v))
         end for i1 in -2:2, i2 in -2:2] );
 
-julia> vs2=sort(vs1; by=x->x.n);
+julia> # sort by norm
+       vs2=sort(vs1; by=x->x.n);
 
-julia> collect(groupby_numbers_dict_indices(vs2; keyfunc=x->x.n))
+julia> # group by norm
+       collect(groupby_numbers_dict_indices(vs2; keyfunc=x->x.n))
 6-element Vector{Tuple{Any, Vector{Int64}}}:
  (0.0, [1])
  (0.9999999976242439, [2, 3, 4, 5])
@@ -245,7 +271,6 @@ julia> collect(groupby_numbers_dict_indices(vs2; keyfunc=x->x.n))
  (2.2360679691661827, [14, 15, 16, 17, 18, 19, 20, 21])
  (2.828427114159456, [22, 23, 24, 25])
 ```
-
 
 
 ## See also
