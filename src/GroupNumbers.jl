@@ -5,11 +5,8 @@ import Base: IteratorSize, IteratorEltype
 import Base: SizeUnknown
 import Base: HasEltype
 
-export
-    groupby2_dict,
-    groupby2_dict_indices,
-    groupby_numbers_dict,
-    groupby_numbers_dict_indices
+export groupby2_dict,
+    groupby2_dict_indices, groupby_numbers_dict, groupby_numbers_dict_indices
 
 macro ifsomething(ex)
     quote
@@ -39,11 +36,18 @@ emits the key `k` and the vector `xg` of the grouped elements .
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby2_dict(xs::I; keyfunc::F1=identity, compare::F2=isequal) where {F1<:Base.Callable,F2<:Base.Callable,I}
+function groupby2_dict(
+    xs::I;
+    keyfunc::F1 = identity,
+    compare::F2 = isequal,
+) where {F1<:Base.Callable,F2<:Base.Callable,I}
     Groupby2Dict{I,F1,F2}(keyfunc, compare, xs)
 end
 
-function iterate(it::Groupby2Dict{I,F1,F2}, state=nothing) where {I,F1<:Base.Callable,F2<:Base.Callable}
+function iterate(
+    it::Groupby2Dict{I,F1,F2},
+    state = nothing,
+) where {I,F1<:Base.Callable,F2<:Base.Callable}
     if state === nothing
         prev_val, xs_state = @ifsomething iterate(it.xs)
         prev_key = it.keyfunc(prev_val)
@@ -99,11 +103,18 @@ emits the key `k` and the vector `ig` of the grouped indices.
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby2_dict_indices(xs::I; keyfunc::F1=identity, compare::F2=isequal) where {F1<:Base.Callable,F2<:Base.Callable,I}
+function groupby2_dict_indices(
+    xs::I;
+    keyfunc::F1 = identity,
+    compare::F2 = isequal,
+) where {F1<:Base.Callable,F2<:Base.Callable,I}
     Groupby2DictIndices{I,F1,F2}(keyfunc, compare, xs)
 end
 
-function iterate(it::Groupby2DictIndices{I,F1,F2}, state=nothing) where {I,F1<:Base.Callable,F2<:Base.Callable}
+function iterate(
+    it::Groupby2DictIndices{I,F1,F2},
+    state = nothing,
+) where {I,F1<:Base.Callable,F2<:Base.Callable}
     if state === nothing
         prev_val, xs_state = @ifsomething iterate(it.xs)
         prev_key = it.keyfunc(prev_val)
@@ -155,8 +166,8 @@ then, emits the key `k` and the vector `xg` of grouped elements.
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby_numbers_dict(xs; keyfunc=identity, kwargs...)
-    groupby2_dict(xs; keyfunc=keyfunc, compare=(x, y) -> isapprox(x, y; kwargs...))
+function groupby_numbers_dict(xs; keyfunc = identity, kwargs...)
+    groupby2_dict(xs; keyfunc = keyfunc, compare = (x, y) -> isapprox(x, y; kwargs...))
 end
 
 
@@ -172,15 +183,15 @@ then, emits the key `k` and the vector `ig` of the grouped indices.
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby_numbers_dict_indices(xs; keyfunc=identity, kwargs...)
-    groupby2_dict_indices(xs; keyfunc=keyfunc, compare=(x, y) -> isapprox(x, y; kwargs...))
+function groupby_numbers_dict_indices(xs; keyfunc = identity, kwargs...)
+    groupby2_dict_indices(
+        xs;
+        keyfunc = keyfunc,
+        compare = (x, y) -> isapprox(x, y; kwargs...),
+    )
 end
 
-export
-    groupby2,
-    groupby2_indices,
-    groupby_numbers,
-    groupby_numbers_indices
+export groupby2, groupby2_indices, groupby_numbers, groupby_numbers_indices
 
 # groupby2
 # An iterator that yields a key-and-group pair from the iterator `xs`.
@@ -202,11 +213,18 @@ emits the vector `xg` of the grouped elements.
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby2(xs::I; keyfunc::F1=identity, compare::F2=isequal) where {F1<:Base.Callable,F2<:Base.Callable,I}
+function groupby2(
+    xs::I;
+    keyfunc::F1 = identity,
+    compare::F2 = isequal,
+) where {F1<:Base.Callable,F2<:Base.Callable,I}
     Groupby2{I,F1,F2}(keyfunc, compare, xs)
 end
 
-function iterate(it::Groupby2{I,F1,F2}, state=nothing) where {I,F1<:Base.Callable,F2<:Base.Callable}
+function iterate(
+    it::Groupby2{I,F1,F2},
+    state = nothing,
+) where {I,F1<:Base.Callable,F2<:Base.Callable}
     if state === nothing
         prev_val, xs_state = @ifsomething iterate(it.xs)
         prev_key = it.keyfunc(prev_val)
@@ -244,13 +262,13 @@ end
 
 # groupby2_indices
 # An iterator that yields a key and indices pair from the iterator `xs`.
-struct Groupby2_Indices{I,F1<:Base.Callable,F2<:Base.Callable}
+struct Groupby2Indices{I,F1<:Base.Callable,F2<:Base.Callable}
     keyfunc::F1
     compare::F2
     xs::I
 end
-eltype(::Type{<:Groupby2_Indices{I}}) where {I} = Vector{Int64}
-IteratorSize(::Type{<:Groupby2_Indices}) = SizeUnknown()
+eltype(::Type{<:Groupby2Indices{I}}) where {I} = Vector{Int64}
+IteratorSize(::Type{<:Groupby2Indices}) = SizeUnknown()
 
 """
     groupby2_indices(xs; keyfunc=identity, compare=isequal)
@@ -262,11 +280,18 @@ emits the vector `ig` of the grouped indices.
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby2_indices(xs::I; keyfunc::F1=identity, compare::F2=isequal) where {F1<:Base.Callable,F2<:Base.Callable,I}
-    Groupby2_Indices{I,F1,F2}(keyfunc, compare, xs)
+function groupby2_indices(
+    xs::I;
+    keyfunc::F1 = identity,
+    compare::F2 = isequal,
+) where {F1<:Base.Callable,F2<:Base.Callable,I}
+    Groupby2Indices{I,F1,F2}(keyfunc, compare, xs)
 end
 
-function iterate(it::Groupby2_Indices{I,F1,F2}, state=nothing) where {I,F1<:Base.Callable,F2<:Base.Callable}
+function iterate(
+    it::Groupby2Indices{I,F1,F2},
+    state = nothing,
+) where {I,F1<:Base.Callable,F2<:Base.Callable}
     if state === nothing
         prev_val, xs_state = @ifsomething iterate(it.xs)
         prev_key = it.keyfunc(prev_val)
@@ -318,8 +343,8 @@ then, emit the vector `xg` of the grouped numbers.
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby_numbers(xs; keyfunc=identity, kwargs...)
-    groupby2(xs; keyfunc=keyfunc, compare=(x, y) -> isapprox(x, y; kwargs...))
+function groupby_numbers(xs; keyfunc = identity, kwargs...)
+    groupby2(xs; keyfunc = keyfunc, compare = (x, y) -> isapprox(x, y; kwargs...))
 end
 
 
@@ -335,8 +360,8 @@ then, emits the vector `ig` of the grouped indices.
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
-function groupby_numbers_indices(xs; keyfunc=identity, kwargs...)
-    groupby2_indices(xs; keyfunc=keyfunc, compare=(x, y) -> isapprox(x, y; kwargs...))
+function groupby_numbers_indices(xs; keyfunc = identity, kwargs...)
+    groupby2_indices(xs; keyfunc = keyfunc, compare = (x, y) -> isapprox(x, y; kwargs...))
 end
 
 
