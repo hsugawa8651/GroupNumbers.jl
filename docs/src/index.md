@@ -31,14 +31,11 @@ with accompanying `kwargs`
 being supplied to the keyword parameters of 
 the default `isapprox` function, allowing the control of the tolerance.
 
-Unbranded iterators ("ZZZ" = "") emit the grouped elements. 
-Their optional keyword parameter `emit` will be applied to each element, 
-which allow further transformation, although induce runtime dispatch.
-
-On the other hands, the `_indices` alternatives ("ZZZ" = "\_indices" ) emit the indices of the grouped elements.
+While unbranded iterators ("ZZZ" = "") emit the grouped elements,
+the `_indices` alternatives ("ZZZ" = "\_indices" ) emit the indices of the grouped elements.
 
 While unbranded iterators ("YYY" = "") emit only the grouped elements or their indices,
-the `_dict` alternatives ("YYY" = "\_dict" ) emit also the key of the first element in the each group.
+the `_dict` alternatives ("YYY" = "\_dict" ) emit also the first keys.
 
 
 # Examples
