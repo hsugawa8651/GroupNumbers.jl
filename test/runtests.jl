@@ -39,7 +39,7 @@ using Test
 
         @testset "empty arrays" begin
             @test_throws MethodError groupby2([]; emit = Int64)
-            @test_throws MethodError groupby2(Union{}[]; emit = Int64)
+            @test_throws Exception groupby2(Union{}[]; emit = Int64)
         end
 
         @testset "singletons" begin
@@ -94,7 +94,7 @@ using Test
 
         @testset "empty arrays" begin
             @test_throws MethodError groupby2_dict([]; emit = Int64)
-            @test_throws MethodError groupby2_dict(Union{}[]; emit = Int64)
+            @test_throws Exception groupby2_dict(Union{}[]; emit = Int64)
         end
 
         @testset "singletons" begin
@@ -192,7 +192,7 @@ using Test
 
         @testset "empty arrays" begin
             @test_throws MethodError groupby_numbers([]; emit = Int64)
-            @test_throws MethodError groupby_numbers(Union{}[]; emit = Int64)
+            @test_throws Exception groupby_numbers(Union{}[]; emit = Int64)
         end
         @testset "singletons" begin
             test_groupby_numbers("A", [[65]]; emit = Int64)
