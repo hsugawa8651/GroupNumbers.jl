@@ -56,7 +56,7 @@ function groupby2_dict(
     xs::I;
     keyfunc::F1 = identity,
     compare::F2 = isequal,
-    emit = identity,
+    emit = identity
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     if emit == identity
         groupby2_dict_noemit(xs; keyfunc, compare)
@@ -69,14 +69,14 @@ end
 function groupby2_dict_noemit(
     xs::I;
     keyfunc::F1 = identity,
-    compare::F2 = isequal,
+    compare::F2 = isequal
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     Groupby2Dict{I,F1,F2}(keyfunc, compare, xs)
 end
 
 function iterate(
     it::Groupby2Dict{I,F1,F2},
-    state = nothing,
+    state = nothing
 ) where {I,F1<:Base.Callable,F2<:Base.Callable}
     if state === nothing
         prev_val, xs_state = @ifsomething iterate(it.xs)
@@ -126,7 +126,7 @@ function groupby2_dict_emit(
     xs::I;
     keyfunc::F1 = identity,
     compare::F2 = isequal,
-    emit = identity,
+    emit = identity
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     E = eltype(I)
     V = first_return_type(emit, E)
@@ -136,7 +136,7 @@ end
 
 function iterate(
     it::Groupby2DictEmit{V,E,I,F1,F2},
-    state = nothing,
+    state = nothing
 ) where {V,E,I,F1<:Base.Callable,F2<:Base.Callable}
     if state === nothing
         prev_val, xs_state = @ifsomething iterate(it.xs)
@@ -196,7 +196,7 @@ See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 function groupby2_dict_indices(
     xs::I;
     keyfunc::F1 = identity,
-    compare::F2 = isequal,
+    compare::F2 = isequal
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     Groupby2DictIndices{I,F1,F2}(keyfunc, compare, xs)
 end
@@ -261,7 +261,7 @@ function groupby_numbers_dict(xs; keyfunc = identity, emit = identity, kwargs...
         xs;
         keyfunc = keyfunc,
         emit = emit,
-        compare = (x, y) -> isapprox(x, y; kwargs...),
+        compare = (x, y) -> isapprox(x, y; kwargs...)
     )
 end
 
@@ -282,7 +282,7 @@ function groupby_numbers_dict_indices(xs; keyfunc = identity, kwargs...)
     groupby2_dict_indices(
         xs;
         keyfunc = keyfunc,
-        compare = (x, y) -> isapprox(x, y; kwargs...),
+        compare = (x, y) -> isapprox(x, y; kwargs...)
     )
 end
 
@@ -312,7 +312,7 @@ function groupby2(
     xs::I;
     keyfunc::F1 = identity,
     compare::F2 = isequal,
-    emit = identity,
+    emit = identity
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     if emit == identity
         groupby2_noemit(xs; keyfunc, compare)
@@ -324,7 +324,7 @@ end
 function groupby2_noemit(
     xs::I;
     keyfunc::F1 = identity,
-    compare::F2 = isequal,
+    compare::F2 = isequal
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     Groupby2{I,F1,F2}(keyfunc, compare, xs)
 end
@@ -382,7 +382,7 @@ function groupby2_emit(
     xs::I;
     keyfunc::F1 = identity,
     compare::F2 = isequal,
-    emit = identity,
+    emit = identity
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     E = eltype(I)
     V = first_return_type(emit, E)
@@ -452,14 +452,14 @@ See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 function groupby2_indices(
     xs::I;
     keyfunc::F1 = identity,
-    compare::F2 = isequal,
+    compare::F2 = isequal
 ) where {F1<:Base.Callable,F2<:Base.Callable,I}
     Groupby2Indices{I,F1,F2}(keyfunc, compare, xs)
 end
 
 function iterate(
     it::Groupby2Indices{I,F1,F2},
-    state = nothing,
+    state = nothing
 ) where {I,F1<:Base.Callable,F2<:Base.Callable}
     if state === nothing
         prev_val, xs_state = @ifsomething iterate(it.xs)
@@ -517,7 +517,7 @@ function groupby_numbers(xs; keyfunc = identity, emit = identity, kwargs...)
         xs;
         keyfunc = keyfunc,
         emit = emit,
-        compare = (x, y) -> isapprox(x, y; kwargs...),
+        compare = (x, y) -> isapprox(x, y; kwargs...)
     )
 end
 
