@@ -16,22 +16,6 @@ macro ifsomething(ex)
     end
 end
 
-using FunctionWrappers
-import FunctionWrappers: FunctionWrapper
-
-struct EmitFunction{V,E}
-    fun::FunctionWrapper{V,Tuple{E}}
-end
-
-evaluate_emit(emit::EmitFunction{V,E}, arg) where {V,E} = emit.fun(arg)
-
-function first_return_type(f, etype)
-    vs = Base.return_types(f, Tuple{etype})
-    (length(vs) == 1) || throw(MethodError(f, "is expected to be type-stable."))
-    first(vs)
-end
-
-
 # groupby2_dict
 # An iterator that yields a key-and-group pair from the iterator `xs`.
 struct Groupby2Dict{I,F1<:Base.Callable,F2<:Base.Callable}
@@ -43,12 +27,12 @@ eltype(::Type{<:Groupby2Dict{I}}) where {I} = Tuple{Any,Vector{eltype(I)}}
 IteratorSize(::Type{<:Groupby2Dict}) = SizeUnknown()
 
 """
-    groupby2_dict(xs; keyfunc=identity, compare=isequal, emit=identity)
+    groupby2_dict(xs; keyfunc=identity, compare=isequal)
 
 An iterator that yields a key-and-group pair `(k,xg)` from the iterator `xs`,
 where the key `k` is computed by applying `keyfunc` to each element of `xs`.
 Compare adjacent keys by `compare` function, then,
-emits the key `k` and the vector `xg` of the grouped elements.
+emits the key `k` and the vector `xg` of the grouped elements .
 
 See [documentation](https://hsugawa8651.github.io/GroupNumbers.jl/dev/)
 """
@@ -247,7 +231,7 @@ end
 # groupby_numbers_dict
 
 """
-    groupby_numbers_dict(xs; keyfunc=identity, emit = identity, kwargs)
+    groupby_numbers_dict(xs; keyfunc=identity, kwargs)
 
 An iterator that yields a key-and-group pair `(k,xg)` from the iterator `xs` of presumably numbers,
 where the key `k` is computed by applying `keyfunc` to each element of `xs`.
@@ -299,7 +283,7 @@ eltype(::Type{<:Groupby2{I}}) where {I} = Vector{eltype(I)}
 IteratorSize(::Type{<:Groupby2}) = SizeUnknown()
 
 """
-    groupby2(xs; keyfunc=identity, compare=isequal, emit=identity)
+    groupby2(xs; keyfunc=identity, compare=isequal)
 
 An iterator that yields a group of elements `xg` from the iterator `xs`,
 where the key is computed by applying `keyfunc` to each element of `xs`.
@@ -503,7 +487,7 @@ end
 # groupby_numbers
 
 """
-    groupby_numbers(xs; keyfunc=identity, emit=identity, kwargs)
+    groupby_numbers(xs; keyfunc=identity, kwargs)
 
 An iterator that yields a group of numbers `xg` from the iterator `xs` of presumably numbers,
 where the key is computed by applying `keyfunc` to each element of `xs`.

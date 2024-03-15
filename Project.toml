@@ -1,10 +1,9 @@
 name = "GroupNumbers"
 uuid = "3c80737e-c28d-49fd-9c64-d7d44b4f4ed8"
 authors = ["Hiroharu Sugawara <hsugawa@gmail.com>"]
-version = "0.4.0"
+version = "0.3.1"
 
 [deps]
-FunctionWrappers = "069b7b12-0de2-55c6-9aab-29f3d0a68a2e"
 
 [compat]
 "FunctionWrappers"="1.3"
