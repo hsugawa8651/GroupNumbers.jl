@@ -8,12 +8,13 @@ Install this package with `Pkg.add("GroupNumbers")`
 
 A family of iterators for grouping adjecent elements of the given iterator `xs`.
 
-| `compare` function | emits the grouped elements          | emits the grouped indices           |                |
+| `compare` function | emits the grouped elements      | emits the grouped indices       |                |
 |:-------------------|:--------------------------------|:--------------------------------|:---------------|
 | `isequal`          | `groupby2`                      | `groupby2_indices`              |                |
 |                    | `groupby2_dict`                 | `groupby2_dict_indices`         | also emits key |
 | `isapprox`         | `groupby_numbers`               | `groupby_numbers_indices`       |                |
 |                    | `groupby_numbers_dict`          | `groupby_numbers_dict_indices`  | also emits key |
+|                    | accepts optional `emit` parameter   |                                 |                |
 
 
 * `groupby2YYYZZZ(xs; keyfunc=identity, compare=isequal)`
@@ -31,11 +32,11 @@ with accompanying `kwargs`
 being supplied to the keyword parameters of 
 the default `isapprox` function, allowing the control of the tolerance.
 
-While unbranded iterators ("ZZZ" = "") emit the grouped elements,
-the `_indices` alternatives ("ZZZ" = "\_indices" ) emit the indices of the grouped elements.
+* Unbranded iterators ("ZZZ" = "") emit the grouped elements.
+* The `_indices` alternatives ("ZZZ" = "\_indices" ) emit the indices of the grouped elements.
 
-While unbranded iterators ("YYY" = "") emit only the grouped elements or their indices,
-the `_dict` alternatives ("YYY" = "\_dict" ) emit also the first keys.
+* Unbranded iterators ("YYY" = "") emit only the grouped elements or their indices. Optional keyword parameter `emit` may be specified to apply  further transfomation to each element, although it will induce runtime dispatch and lower performance. 
+* The `_dict` alternatives ("YYY" = "\_dict" ) emit also the first keys.
 
 
 # Examples
